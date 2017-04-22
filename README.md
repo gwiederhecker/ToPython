@@ -1,7 +1,7 @@
 # ToPython
 
 FUNCTION TO CONVERT MATHEMATICA EXPRESSION TO NUMPY;
-----------------------------------------------------
+
 INPUT ARGUMENTS;
 x: your mathematica expression, it can be numbers, literals, 
 complexes or lists;
@@ -15,5 +15,5 @@ string ""
 OUTPUT;
 the Numpy python-ready expression (to be copied as a string);
 The formatted expression will be copied ot your clipboard, ready to paste on Python;
-------------------------------------------------------
+
 Not tested for every possible combination; use at your risk
