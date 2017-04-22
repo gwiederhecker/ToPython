@@ -1,0 +1,315 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     10294,        305]
+NotebookOptionsPosition[      8703,        252]
+NotebookOutlinePosition[      9213,        274]
+CellTagsIndexPosition[      9127,        269]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"loads", " ", "the", " ", "package"}], " ", "-", " ", 
+    RowBox[{"after", " ", "installation"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"Needs", "[", "\"\<ToPython`\>\"", "]"}]}]], "Input",
+ CellChangeTimes->{{3.70181767476367*^9, 3.701817694205203*^9}, {
+  3.7018181976937943`*^9, 3.701818211998588*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "ToPython"}]], "Input",
+ CellChangeTimes->{{3.70181815383568*^9, 3.7018181578773003`*^9}, 
+   3.701818214459565*^9}],
+
+Cell[BoxData[
+ StyleBox["\<\"ToPython[expression,numpystring] converts Mathematica \
+expression to a Numpy compatible expression.\\n because Numpy can be imported \
+in several ways, numpystring is a string that will be added to appended to \
+function names, e.g., Cos->numpy.cos\"\>", "MSG"]], "Print", "PrintUsage",
+ CellChangeTimes->{3.7018181586956463`*^9},
+ CellTags->"Info273701807358-2755471"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Expression", " ", "examples"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ToPython", "[", 
+    RowBox[{"a", "+", "b"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{"a", "*", "b"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{"a", "/", "b"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"a", "+", "b"}], ")"}], "/", 
+     RowBox[{"(", 
+      RowBox[{"d", "+", "e", "+", "g"}], ")"}]}], "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"a", "+", "b"}], ")"}], "^", 
+     RowBox[{"(", 
+      RowBox[{"d", "+", "e", "+", "g"}], ")"}]}], "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{"Exp", "[", 
+     RowBox[{"a", "+", "b"}], "]"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{
+     RowBox[{"Sin", "[", 
+      RowBox[{"(", 
+       RowBox[{"a", "+", "b"}], ")"}], "]"}], "/", 
+     RowBox[{"Cos", "[", 
+      RowBox[{"d", "+", "e"}], "]"}]}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{
+     RowBox[{"Sin", "[", 
+      RowBox[{"(", 
+       RowBox[{"a", "+", "b"}], ")"}], "]"}], "/", 
+     RowBox[{"Tanh", "[", 
+      RowBox[{"d", "+", "e"}], "]"}]}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{"\[Pi]", " ", 
+     RowBox[{"Cosh", "[", "a", "]"}]}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{"Log10", "[", "x", "]"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Expression", " ", "with", " ", "greek", " ", "letters"}], "*)"}],
+    "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{"Sin", "[", 
+     RowBox[{"\[Alpha]", "+", "\[Beta]"}], "]"}], "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Numeric", " ", "examples"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", "2", "]"}], "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{"1", "/", "3"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{"1.0", "/", "3"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", "2.31", "]"}], "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{"2.31", "+", 
+     RowBox[{"5.3", "I"}]}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Array", " ", "handling"}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{"{", 
+     RowBox[{"1", ",", "2", ",", "3"}], "}"}], "]"}], "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{"{", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "2", ",", "3"}], "}"}], "}"}], "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{"Cos", "[", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "2", ",", "3"}], "}"}], "]"}], "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{"Example", " ", "with", " ", "numpy", " ", "as", " ", "np"}], 
+    "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{
+     RowBox[{"\[Pi]", " ", 
+      RowBox[{
+       RowBox[{"Cosh", "[", "a", "]"}], "/", 
+       RowBox[{"Sin", "[", "b", "]"}]}]}], ",", "\"\<np\>\""}], "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{
+     RowBox[{"Exp", "[", 
+      RowBox[{"a", "+", "b"}], "]"}], ",", "\"\<np\>\""}], "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{
+     RowBox[{"Cos", "[", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "2", ",", "3"}], "}"}], "]"}], ",", "\"\<np\>\""}], 
+    "]"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+    "Example", " ", "with", " ", "numpy", " ", "as", " ", 
+     "\"\<from numpy import *\>\""}], "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{
+     RowBox[{"\[Pi]", " ", 
+      RowBox[{
+       RowBox[{"Cosh", "[", "a", "]"}], "/", 
+       RowBox[{"Sin", "[", "b", "]"}]}]}], ",", "\"\<\>\""}], "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{
+     RowBox[{"Exp", "[", 
+      RowBox[{"a", "+", "b"}], "]"}], ",", "\"\<\>\""}], "]"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{"ToPython", "[", 
+    RowBox[{
+     RowBox[{"Cos", "[", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", "2", ",", "3"}], "}"}], "]"}], ",", "\"\<\>\""}], 
+    "]"}]}]}]], "Input"],
+
+Cell[BoxData["\<\"( a + b )\"\>"], "Output",
+ CellChangeTimes->{3.701817713973694*^9}],
+
+Cell[BoxData["\<\"a * b\"\>"], "Output",
+ CellChangeTimes->{3.7018177140188704`*^9}],
+
+Cell[BoxData["\<\"a * ( b )**( -1 )\"\>"], "Output",
+ CellChangeTimes->{3.701817714041884*^9}],
+
+Cell[BoxData["\<\"( a + b ) * ( ( d + ( e + g ) ) )**( -1 )\"\>"], "Output",
+ CellChangeTimes->{3.701817714075296*^9}],
+
+Cell[BoxData["\<\"( ( a + b ) )**( ( d + ( e + g ) ) )\"\>"], "Output",
+ CellChangeTimes->{3.7018177141115913`*^9}],
+
+Cell[BoxData["\<\"( numpy.e )**( ( a + b ) )\"\>"], "Output",
+ CellChangeTimes->{3.701817714138361*^9}],
+
+Cell[BoxData["\<\"numpy.1/numpy.cos( ( d + e ) ) * numpy.sin( ( a + b ) \
+)\"\>"], "Output",
+ CellChangeTimes->{3.7018177141633997`*^9}],
+
+Cell[BoxData["\<\"numpy.1/numpy.tanh( ( d + e ) ) * numpy.sin( ( a + b ) \
+)\"\>"], "Output",
+ CellChangeTimes->{3.701817714189672*^9}],
+
+Cell[BoxData["\<\"numpy.pi * numpy.cosh( a )\"\>"], "Output",
+ CellChangeTimes->{3.701817714232546*^9}],
+
+Cell[BoxData["\<\"( numpy.log( 10 ) )**( -1 ) * numpy.log( x )\"\>"], "Output",
+ CellChangeTimes->{3.701817714264065*^9}],
+
+Cell[BoxData["\<\"numpy.sin( ( alpha + beta ) )\"\>"], "Output",
+ CellChangeTimes->{3.701817714289968*^9}],
+
+Cell[BoxData["\<\"2\"\>"], "Output",
+ CellChangeTimes->{3.7018177143315697`*^9}],
+
+Cell[BoxData["\<\"1/3\"\>"], "Output",
+ CellChangeTimes->{3.701817714353628*^9}],
+
+Cell[BoxData["\<\"0.333333e0\"\>"], "Output",
+ CellChangeTimes->{3.7018177143904676`*^9}],
+
+Cell[BoxData["\<\"0.231e1\"\>"], "Output",
+ CellChangeTimes->{3.701817714423192*^9}],
+
+Cell[BoxData["\<\"complex( 0.231e1,0.53e1 )\"\>"], "Output",
+ CellChangeTimes->{3.701817714456196*^9}],
+
+Cell[BoxData["\<\"numpy.array( [1,2,3,] )\"\>"], "Output",
+ CellChangeTimes->{3.701817714486806*^9}],
+
+Cell[BoxData["\<\"numpy.array( [numpy.array( [1,2,3,] ),] )\"\>"], "Output",
+ CellChangeTimes->{3.701817714500472*^9}],
+
+Cell[BoxData["\<\"numpy.array( [numpy.cos( 1 ),numpy.cos( 2 ),numpy.cos( 3 \
+),] )\"\>"], "Output",
+ CellChangeTimes->{3.701817714522142*^9}],
+
+Cell[BoxData["\<\"np.pi * np.cosh( a ) * np.1/np.sin( b )\"\>"], "Output",
+ CellChangeTimes->{3.7018177145365868`*^9}],
+
+Cell[BoxData["\<\"( np.e )**( ( a + b ) )\"\>"], "Output",
+ CellChangeTimes->{3.7018177145737057`*^9}],
+
+Cell[BoxData["\<\"np.array( [np.cos( 1 ),np.cos( 2 ),np.cos( 3 ),] )\"\>"], \
+"Output",
+ CellChangeTimes->{3.701817714607751*^9}],
+
+Cell[BoxData["\<\"pi * cosh( a ) * 1/sin( b )\"\>"], "Output",
+ CellChangeTimes->{3.701817714640382*^9}],
+
+Cell[BoxData["\<\"( e )**( ( a + b ) )\"\>"], "Output",
+ CellChangeTimes->{3.701817714670789*^9}],
+
+Cell[BoxData["\<\"array( [cos( 1 ),cos( 2 ),cos( 3 ),] )\"\>"], "Output",
+ CellChangeTimes->{3.701817714689067*^9}]
+}, Open  ]]
+},
+WindowSize->{808, 701},
+WindowMargins->{{36, Automatic}, {16, Automatic}},
+FrontEndVersion->"11.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (July 28, \
+2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{
+ "Info273701807358-2755471"->{
+  Cell[1107, 37, 399, 6, 79, "Print",
+   CellTags->"Info273701807358-2755471"]}
+ }
+*)
+(*CellTagsIndex
+CellTagsIndex->{
+ {"Info273701807358-2755471", 9023, 263}
+ }
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 377, 8, 54, "Input"],
+Cell[CellGroupData[{
+Cell[960, 32, 144, 3, 32, "Input"],
+Cell[1107, 37, 399, 6, 79, "Print",
+ CellTags->"Info273701807358-2755471"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1543, 48, 4409, 122, 663, "Input"],
+Cell[5955, 172, 86, 1, 32, "Output"],
+Cell[6044, 175, 84, 1, 32, "Output"],
+Cell[6131, 178, 94, 1, 32, "Output"],
+Cell[6228, 181, 118, 1, 32, "Output"],
+Cell[6349, 184, 115, 1, 32, "Output"],
+Cell[6467, 187, 103, 1, 32, "Output"],
+Cell[6573, 190, 136, 2, 32, "Output"],
+Cell[6712, 194, 135, 2, 32, "Output"],
+Cell[6850, 198, 103, 1, 32, "Output"],
+Cell[6956, 201, 121, 1, 32, "Output"],
+Cell[7080, 204, 106, 1, 32, "Output"],
+Cell[7189, 207, 80, 1, 32, "Output"],
+Cell[7272, 210, 80, 1, 32, "Output"],
+Cell[7355, 213, 89, 1, 32, "Output"],
+Cell[7447, 216, 84, 1, 32, "Output"],
+Cell[7534, 219, 102, 1, 32, "Output"],
+Cell[7639, 222, 100, 1, 32, "Output"],
+Cell[7742, 225, 118, 1, 32, "Output"],
+Cell[7863, 228, 141, 2, 32, "Output"],
+Cell[8007, 232, 118, 1, 32, "Output"],
+Cell[8128, 235, 102, 1, 32, "Output"],
+Cell[8233, 238, 129, 2, 32, "Output"],
+Cell[8365, 242, 104, 1, 32, "Output"],
+Cell[8472, 245, 97, 1, 32, "Output"],
+Cell[8572, 248, 115, 1, 32, "Output"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
