@@ -17,3 +17,8 @@ the Numpy python-ready expression (to be copied as a string);
 The formatted expression will be copied ot your clipboard, ready to paste on Python;
 
 Not tested for every possible combination; use at your risk
+
+# Installation
+
+To install the package, download it, click on Mathematica' File menu-> Install->From file...
+Select the file on your disk and you should be ready to go.
