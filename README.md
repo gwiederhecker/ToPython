@@ -1,6 +1,6 @@
 # ToPython
 
-FUNCTION TO CONVERT MATHEMATICA EXPRESSION TO NUMPY;
+Pacakge to convert MATHEMATICA expressions to  Python (Numpy);
 
 INPUT ARGUMENTS;
 x: your mathematica expression, it can be numbers, literals, 
