@@ -19,8 +19,8 @@ the Numpy python-ready expression (to be copied as a string);
 ------------------------------------------------------;
 Not tested for every possible combination; use at your risk, by Gustavo Wiederhecker*)
 If[numpyprefix=="",sep="",sep="."];(*if no prefix is included, the "." separator is not used*)
-lp="( ";
-rp=" )";
+lp="(";
+rp=")";
 PythonForm[Rational[a_,b_]]:=PythonForm[a]<>"/"<>PythonForm[b];
 PythonForm[Complex[a_,b_]]:="complex"<>lp<>PythonForm[a]<>","<>PythonForm[b]<>rp;
 PythonForm[Times[a_,b_]]:=PythonForm[a]<>" * "<>PythonForm[b];
